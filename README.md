@@ -51,3 +51,11 @@ Here are some useful notes on some key components to understand the structure of
 
 * `lib/avc_koombea_webscraper_web/live/site_progress_live.ex`: Is a live view component that ONLY updates a piece of the Scrape Home Controller. Specifically, is used in "`lib/avc_koombea_webscraper_web/scrape_home_html/index.html`.heex line 46" by invoking the "live_render" function, so that the controller strategy can co-exist with a live view component that takes care of rendering "In progress..." if the scrape is still in progress, or renders the number of links if the scrape has finished.
 
+# Tools
+
+- Visual Studio Code
+- SQLite, using the ecto_sqlite3 module version 0.22
+- Table Plus (to visually validate and edit DB information)
+- Elixir 1.17.3
+- Phoenix 1.8.1, with phoenix_ecto 4.6.5 as ORM and phoenix_live_view 1.1.13 for LiveView components
+- Codex for Visual Studio Code connected to the gpt-5-codex model. 
