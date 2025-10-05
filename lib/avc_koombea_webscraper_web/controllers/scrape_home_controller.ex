@@ -19,7 +19,8 @@ defmodule AvcKoombeaWebscraperWeb.ScrapeHomeController do
           id: site.id,
           title: site.title,
           url: site.url,
-          link_count: link_count
+          link_count: link_count,
+          scrape_finished_at: site.scrape_finished_at
         }
       end)
 

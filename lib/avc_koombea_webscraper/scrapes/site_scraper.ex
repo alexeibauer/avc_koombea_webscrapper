@@ -51,7 +51,9 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
 
   defp extract_links(html, base_url) when is_binary(html) do
     base_uri = URI.parse(base_url)
-    Process.sleep(5_000)
+
+    #You can uncomment this line (the sleep function receives milliseconds) to emulate that a scraping takes more time, so that the LiveView functionality is evident
+    #Process.sleep(5_000)
 
     html
     |> then(&Regex.scan(@anchor_regex, &1, capture: :all_but_first))

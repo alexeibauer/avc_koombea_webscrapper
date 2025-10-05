@@ -42,7 +42,18 @@
                   {if site.title in [nil, ""], do: site.url, else: site.title}
                 </a>
               </td>
-              <td class="px-4 py-3 text-sm text-slate-700">{site.link_count}</td>
+              <td class="px-4 py-3 text-sm text-slate-700">
+                <%= live_render(
+                  @conn,
+                  AvcKoombeaWebscraperWeb.SiteProgressLive,
+                  id: "site-progress-#{site.id}",
+                  session: %{
+                    "site_id" => Integer.to_string(site.id),
+                    "initial_link_count" => Integer.to_string(site.link_count),
+                    "finished" => to_string(not is_nil(site.scrape_finished_at))
+                  }
+                ) %>
+              </td>
             </tr>
           <% end %>
         <% end %>
