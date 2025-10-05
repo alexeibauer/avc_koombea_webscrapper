@@ -5,6 +5,7 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
 
   alias AvcKoombeaWebscraper.Scrapes
   alias AvcKoombeaWebscraper.Scrapes.Site
+  alias AvcKoombeaWebscraperWeb.Endpoint
   alias Req
 
   @anchor_regex ~r/<a\b[^>]*href=["']([^"']+)["'][^>]*>(.*?)<\/a>/is
@@ -27,7 +28,8 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
          {:ok, links, page_title} <- fetch_links(site.url),
          {:ok, site} <- maybe_update_site_title(site, page_title),
          {:ok, _} <- Scrapes.create_links(site, links),
-         {:ok, _site} <- Scrapes.mark_site_finished(site) do
+         {:ok, site} <- Scrapes.mark_site_finished(site) do
+      notify_links_updated(site)
       :ok
     else
       {:error, reason} -> {:error, reason}
@@ -49,6 +51,7 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
 
   defp extract_links(html, base_url) when is_binary(html) do
     base_uri = URI.parse(base_url)
+    Process.sleep(5_000)
 
     html
     |> then(&Regex.scan(@anchor_regex, &1, capture: :all_but_first))
@@ -127,6 +130,12 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
   defp maybe_update_site_title(site, title) do
     Scrapes.update_site(site, %{title: title})
   end
+
+  defp notify_links_updated(site) do
+    Endpoint.broadcast(topic_for(site), "site_links_updated", %{site_id: site.id})
+  end
+
+  defp topic_for(%Site{id: site_id}), do: "site_scrape:#{site_id}"
 
   defp normalize_href(href, base_uri) do
     href = String.trim(href)

@@ -1,11 +1,11 @@
 <div class="scrape-container">
   <h1 class="text-2xl font-semibold">Scrape Home</h1>
-  <p class="text-slate-600">Welcome to your scraper dashboard.</p>
+  <p class="text-slate-600 w-text">Welcome to your scraper dashboard.</p>
 
   <div class="scrape-form mt-8">
-    <form action={~p"/scrape-home"} method="post" class="flex flex-wrap items-center gap-3">
+    <form action={~p"/scrape-home"} method="post" class="flex flex-wrap items-center gap-3" style="justify-content: center;">
       <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
-      <label for="url_input" class="text-sm font-medium text-slate-700">Add new URL:</label>
+      <label for="url_input" class="text-sm font-medium text-slate-700 w-text">Add new URL:</label>
       <input
         type="text"
         id="url_input"
@@ -51,7 +51,7 @@
   </div>
 
   <div class="pagination mt-6 flex items-center justify-between text-sm" id="scrape-sites-pagination">
-    <div class="text-slate-600">
+    <div class="text-slate-600 w-text" style="margin-right: 10px;">
       Page {@page} of {@total_pages}
     </div>
     <div class="flex items-center gap-3">

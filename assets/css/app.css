@@ -104,9 +104,12 @@
 
 /* This file is for your main application CSS */
 .scrape-container{
-  padding: 50px
+  padding: 50px;
 }
 
+.w-text{
+  color: white !important;
+}
 .scrape-form{
   text-align: center;
 }
