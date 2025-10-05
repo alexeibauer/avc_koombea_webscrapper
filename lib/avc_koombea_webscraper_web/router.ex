@@ -61,7 +61,7 @@ defmodule AvcKoombeaWebscraperWeb.Router do
     get "/users/settings/confirm-email/:token", UserSettingsController, :confirm_email
     get "/scrape-home", ScrapeHomeController, :index
     post "/scrape-home", ScrapeHomeController, :create
-    get "/scrape-single", ScrapeSingleController, :index
+    get "/scrape-single/:id", ScrapeSingleController, :index
   end
 
   scope "/", AvcKoombeaWebscraperWeb do

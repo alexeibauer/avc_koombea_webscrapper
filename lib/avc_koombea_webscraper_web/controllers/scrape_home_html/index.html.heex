@@ -1,36 +1,71 @@
 <div class="scrape-container">
-    <h1>Scrape Home</h1>
-    <p>Welcome to your scraper dashboard.</p>
-    <div class="scrape-form" style="margin-top: 2rem;">
-        <form action={~p"/scrape-home"} method="post">
-            <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
-            <label for="url_input">Add new URL:</label>
-            <input type="text" id="url_input" name="url" placeholder="https://example.com" style="width: 300px; margin-left: 0.5rem;" />
-            <.button type="submit" variant="primary" phx-disable-with="Scraping...">Scrape</.button>
-        </form>
-    </div>
+  <h1 class="text-2xl font-semibold">Scrape Home</h1>
+  <p class="text-slate-600">Welcome to your scraper dashboard.</p>
 
-  <div class="results-table" style="margin-top: 2rem;">
-    <table cellpadding="6" cellspacing="0" style="width: 100%; border-collapse: collapse;">
-        <thead>
+  <div class="scrape-form mt-8">
+    <form action={~p"/scrape-home"} method="post" class="flex flex-wrap items-center gap-3">
+      <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+      <label for="url_input" class="text-sm font-medium text-slate-700">Add new URL:</label>
+      <input
+        type="text"
+        id="url_input"
+        name="url"
+        placeholder="https://example.com"
+        class="w-72 rounded border border-slate-300 px-3 py-2 text-sm"
+      />
+      <.button type="submit" variant="primary" phx-disable-with="Scraping...">Scrape</.button>
+    </form>
+  </div>
+
+  <div class="results-table mt-8">
+    <table class="min-w-full divide-y divide-slate-200" id="scrape-sites-table">
+      <thead class="bg-slate-100">
         <tr>
-            <th>Name</th>
-            <th>Total links</th>
+          <th scope="col" class="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Site
+          </th>
+          <th scope="col" class="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">
+            Total Links
+          </th>
         </tr>
-        </thead>
-        <tbody>
-        <tr>
-            <td>Example site</td>
-            <td>42</td>
-        </tr>
-        <!-- More rows will be rendered here dynamically -->
-        </tbody>
+      </thead>
+      <tbody class="divide-y divide-slate-200 bg-white">
+        <%= if Enum.empty?(@sites) do %>
+          <tr>
+            <td class="px-4 py-3 text-sm text-slate-500" colspan="2">No sites have been scraped yet.</td>
+          </tr>
+        <% else %>
+          <%= for site <- @sites do %>
+            <tr id={"scrape-site-#{site.id}"} class="hover:bg-slate-50">
+              <td class="px-4 py-3 text-sm">
+                <a href={~p"/scrape-single/#{site.id}"} class="text-blue-600 underline">
+                  {if site.title in [nil, ""], do: site.url, else: site.title}
+                </a>
+              </td>
+              <td class="px-4 py-3 text-sm text-slate-700">{site.link_count}</td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
     </table>
-    </div>
+  </div>
 
-    <div class="pagination" style="margin-top: 1rem; text-align: center;">
-    <button type="button" phx-click="prev_page">Previous</button>
-    <span style="margin: 0 1rem;">Page 1 of 10</span>
-    <button type="button" phx-click="next_page">Next</button>
+  <div class="pagination mt-6 flex items-center justify-between text-sm" id="scrape-sites-pagination">
+    <div class="text-slate-600">
+      Page {@page} of {@total_pages}
     </div>
+    <div class="flex items-center gap-3">
+      <%= if @page > 1 do %>
+        <a href={~p"/scrape-home?page=#{@page - 1}"} class="text-blue-600 underline">Previous</a>
+      <% else %>
+        <span class="text-slate-400">Previous</span>
+      <% end %>
+
+      <%= if @page < @total_pages do %>
+        <a href={~p"/scrape-home?page=#{@page + 1}"} class="text-blue-600 underline">Next</a>
+      <% else %>
+        <span class="text-slate-400">Next</span>
+      <% end %>
+    </div>
+  </div>
 </div>

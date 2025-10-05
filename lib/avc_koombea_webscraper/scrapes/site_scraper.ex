@@ -4,6 +4,7 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
   """
 
   alias AvcKoombeaWebscraper.Scrapes
+  alias AvcKoombeaWebscraper.Scrapes.Site
   alias Req
 
   @anchor_regex ~r/<a\b[^>]*href=["']([^"']+)["'][^>]*>(.*?)<\/a>/is
@@ -16,14 +17,14 @@ defmodule AvcKoombeaWebscraper.Scrapes.SiteScraper do
   ]
 
   @doc """
-  Scrapes the given `url`, storing the site and any links discovered.
+  Scrapes the given site, fetching its links and page title.
 
   Returns `:ok` on success or `{:error, reason}` on failure.
   """
-  @spec run(String.t()) :: :ok | {:error, term()}
-  def run(url) when is_binary(url) do
-    with {:ok, site} <- Scrapes.create_site(%{url: url, scrape_started_at: DateTime.utc_now()}),
-         {:ok, links, page_title} <- fetch_links(url),
+  @spec run(%Site{}) :: :ok | {:error, term()}
+  def run(%Site{} = site) do
+    with {:ok, site} <- Scrapes.mark_site_started(site),
+         {:ok, links, page_title} <- fetch_links(site.url),
          {:ok, site} <- maybe_update_site_title(site, page_title),
          {:ok, _} <- Scrapes.create_links(site, links),
          {:ok, _site} <- Scrapes.mark_site_finished(site) do

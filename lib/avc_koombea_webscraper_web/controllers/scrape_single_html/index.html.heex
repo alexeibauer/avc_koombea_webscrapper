@@ -1,3 +1,47 @@
 <div class="scrape-detail-container">
-    <h1>Scrape Detail</h1>
+  <div class="mb-4">
+    <a href={~p"/scrape-home"} class="text-sm text-blue-600 underline" id="back-to-scrape-home">&larr; Back</a>
+  </div>
+
+  <h1 class="text-2xl font-semibold">Scrape Detail</h1>
+
+  <div class="mt-4 space-y-2">
+    <p class="text-sm text-slate-600">
+      <span class="font-medium text-slate-800">Title:</span>
+      {if @site.title in [nil, ""], do: @site.url, else: @site.title}
+    </p>
+    <p class="text-sm text-slate-600">
+      <span class="font-medium text-slate-800">URL:</span>
+      {@site.url}
+    </p>
+  </div>
+
+  <div class="mt-6">
+    <table class="min-w-full divide-y divide-slate-200" id="scrape-links-table">
+      <thead class="bg-slate-100">
+        <tr>
+          <th scope="col" class="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">Name</th>
+          <th scope="col" class="px-4 py-2 text-left text-xs font-semibold uppercase tracking-wide text-slate-600">URL</th>
+        </tr>
+      </thead>
+      <tbody class="divide-y divide-slate-200 bg-white">
+        <%= if Enum.empty?(@links) do %>
+          <tr>
+            <td class="px-4 py-3 text-sm text-slate-500" colspan="2">No links were discovered for this site.</td>
+          </tr>
+        <% else %>
+          <%= for link <- @links do %>
+            <tr id={"scrape-link-#{link.id}"}>
+              <td class="px-4 py-3 text-sm text-slate-800">
+                {link.name || link.url}
+              </td>
+              <td class="px-4 py-3 text-sm text-blue-600">
+                <a href={link.url} target="_blank" rel="noopener noreferrer" class="underline">{link.url}</a>
+              </td>
+            </tr>
+          <% end %>
+        <% end %>
+      </tbody>
+    </table>
+  </div>
 </div>

@@ -15,6 +15,19 @@ defmodule AvcKoombeaWebscraper.Scrapes do
     Repo.all(query)
   end
 
+  def list_sites_with_link_counts(opts \\ []) do
+    query =
+      from s in Site,
+        left_join: l in assoc(s, :links),
+        group_by: s.id,
+        order_by: [desc: s.inserted_at],
+        select: {s, count(l.id)}
+
+    query
+    |> maybe_paginate(opts)
+    |> Repo.all()
+  end
+
   def count_sites, do: Repo.aggregate(Site, :count)
 
   def get_site!(id), do: Repo.get!(Site, id)
