@@ -19,9 +19,9 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 * You will need to create a new account to start. The auth process was created automatically by the Phoenix Auth module, and just tweaked to adapt to this exercise flow.
 
-* Once you create an account (only an email is needed), you can go to "/dev/mail" to read the email that was sent (this is for dev purposes only). You will get a blue message to redirect you to that page anyway.
+* Once you create an account (only an email is needed), you can go to "/dev/mailbox" to read the email that was sent (this is for dev purposes only). You will get a blue message to redirect you to that page anyway.
 
-* You can then click the email that was sent (you will see emails "sent" in "/dev/mail") and you will be inside the scrape application
+* You can then click the email that was sent (you will see emails "sent" in "/dev/mailbox") and you will be inside the scrape application
 
 * You can go to settings and assign a password to your user for subsequent log ins.
 
