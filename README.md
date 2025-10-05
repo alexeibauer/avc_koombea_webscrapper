@@ -2,6 +2,10 @@
 
 This is the coding exercise by Alejandro Valdes Calderon as part of the recruitment process by Koombea.
 
+# Video of working demo
+
+https://youtu.be/F860YCCT05I
+
 # Build steps to deploy in local
 
 * Pre-requisite: You must have elixir and mix installed an in your PATH.
@@ -31,6 +35,7 @@ Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
 
 * IMPORTANT:You can go to `liv/avc_koombea_webscraper/scrapes/site_scraper.ex`, line 56, and uncomment the "Process.sleep/1" there to EMULATE that a site scrape takes more time. This will be useful to make evident the LIVE VIEW functionality, as many sites are scraped very quickly so is hard to see the LIVE VIEW process.
 
+* VIDEO OF WORKING DEMO: https://youtu.be/F860YCCT05I
 
 # Technical notes
 
@@ -45,3 +50,4 @@ Here are some useful notes on some key components to understand the structure of
 * `lib/avc_koombea_webscraper_web/live/scrape_single_live.ex`: Is a full LIVE component that is subscribed to the site topic (each site has a separate topic identified by each site id). Once it receives an update, it renders content of links scraped in the page table.
 
 * `lib/avc_koombea_webscraper_web/live/site_progress_live.ex`: Is a live view component that ONLY updates a piece of the Scrape Home Controller. Specifically, is used in "`lib/avc_koombea_webscraper_web/scrape_home_html/index.html`.heex line 46" by invoking the "live_render" function, so that the controller strategy can co-exist with a live view component that takes care of rendering "In progress..." if the scrape is still in progress, or renders the number of links if the scrape has finished.
+
