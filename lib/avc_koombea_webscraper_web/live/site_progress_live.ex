@@ -2,7 +2,6 @@ defmodule AvcKoombeaWebscraperWeb.SiteProgressLive do
   use AvcKoombeaWebscraperWeb, :live_view
 
   alias AvcKoombeaWebscraper.Scrapes
-  alias AvcKoombeaWebscraper.Scrapes.Site
   alias AvcKoombeaWebscraperWeb.Endpoint
 
   @impl true

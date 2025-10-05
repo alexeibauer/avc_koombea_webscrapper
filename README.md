@@ -4,11 +4,12 @@ This is the coding exercise by Alejandro Valdes Calderon as part of the recruitm
 
 # Build steps to deploy in local
 
+* Pre-requisite: You must have elixir and mix installed an in your PATH.
 
-* Clone this repository into your local environment. Pre-requisite: You must have elixir and mix installed an in your PATH.
-* Run `mix setup` to install and setup dependencies
-* Run `mix ecto create` to create a local database. For simplicity, the exercise uses SQLite, so a "dev.db" file will be created in your "priv/data" path. This could be easily changed by changing the Ecto repo to use another adapter (e.g, PostgreSQL or MySQL), and then configure in config/dev.exs accordingly
-* Run `mix ecto migrate` to create all tables in the SQLite database
+* Clone this repository into your local environment: git clone https://github.com/alexeibauer/avc_koombea_webscrapper.git .
+
+* Run `mix setup` to install and setup dependencies. This will also create a local database. For simplicity, the exercise uses SQLite, so a "dev.db" file will be created in your "priv/data" path. For a real-life project this could be easily changed by changing the Ecto repo to use another adapter (e.g, PostgreSQL or MySQL), and then configure in config/dev.exs accordingly, as every interaction with the database has been implemented through Ecto. The Ecto migrations run as part of `mix setup`, so no need to do anything else.
+
 * Start Phoenix endpoint with `mix phx.server` or inside IEx with `iex -S mix phx.server`
 
 Now you can visit [`localhost:4000`](http://localhost:4000) from your browser.
