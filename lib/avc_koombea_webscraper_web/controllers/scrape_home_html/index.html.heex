@@ -1,2 +1,36 @@
-<h1>Scrape Home</h1>
-<p>Welcome to your scraper dashboard.</p>
+<div class="scrape-container">
+    <h1>Scrape Home</h1>
+    <p>Welcome to your scraper dashboard.</p>
+    <div class="scrape-form" style="margin-top: 2rem;">
+        <form action={~p"/scrape-home"} method="post">
+            <input type="hidden" name="_csrf_token" value={Plug.CSRFProtection.get_csrf_token()} />
+            <label for="url_input">Add new URL:</label>
+            <input type="text" id="url_input" name="url" placeholder="https://example.com" style="width: 300px; margin-left: 0.5rem;" />
+            <.button type="submit" variant="primary" phx-disable-with="Scraping...">Scrape</.button>
+        </form>
+    </div>
+
+  <div class="results-table" style="margin-top: 2rem;">
+    <table cellpadding="6" cellspacing="0" style="width: 100%; border-collapse: collapse;">
+        <thead>
+        <tr>
+            <th>Name</th>
+            <th>Total links</th>
+        </tr>
+        </thead>
+        <tbody>
+        <tr>
+            <td>Example site</td>
+            <td>42</td>
+        </tr>
+        <!-- More rows will be rendered here dynamically -->
+        </tbody>
+    </table>
+    </div>
+
+    <div class="pagination" style="margin-top: 1rem; text-align: center;">
+    <button type="button" phx-click="prev_page">Previous</button>
+    <span style="margin: 0 1rem;">Page 1 of 10</span>
+    <button type="button" phx-click="next_page">Next</button>
+    </div>
+</div>

@@ -103,3 +103,14 @@
 [data-phx-session], [data-phx-teleported-src] { display: contents }
 
 /* This file is for your main application CSS */
+.scrape-container{
+  padding: 50px
+}
+
+.scrape-form{
+  text-align: center;
+}
+
+.scrape-detail-container{
+  padding: 100px;
+}
